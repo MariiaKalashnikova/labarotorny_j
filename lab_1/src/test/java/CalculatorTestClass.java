@@ -206,4 +206,72 @@ public class CalculatorTestClass {
         assertEquals(0, result);
     }
 
+    @Test
+    void testDel() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*\\n8*9*1");
+        assertEquals(18, result);
+    }
+
+    @Test
+    void testNoDel() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*\\n8*9;1");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testDelNeg() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*\\n8*-9,2");
+        assertEquals(1, result);
+    }
+
+    @Test
+    void testDel1() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\*\\n8*9*1");
+        assertEquals(0, result);
+    }
+    @Test
+    void testDel2() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*\\n7\\n8*9,1");
+        assertEquals(25, result);
+    }
+
+    @Test
+    void testDel3() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*7\\n8*9,1");
+        assertEquals(0, result);
+    }
+    @Test
+    void testDelStart() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*\\n*7\\n8*9,1");
+        assertEquals(0, result);
+    }
+    @Test
+    void testDelEnd() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\*\\n7\\n8*9,1*");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testDelNumber() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\4\\n544");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testDelNumber1() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\4\\n541");
+        assertEquals(6, result);
+    }
+
+
 }
