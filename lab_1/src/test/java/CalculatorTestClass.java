@@ -210,7 +210,7 @@ public class CalculatorTestClass {
     void testDel() {
         StringCalculator calc = new StringCalculator();
         int result = calc.add("\\\\*\\n8*9*1");
-        assertEquals(18, result);
+        assertEquals(0, result);
     }
 
     @Test
@@ -239,12 +239,6 @@ public class CalculatorTestClass {
         StringCalculator calc = new StringCalculator();
         int result = calc.add("\\*\\n8*9*1");
         assertEquals(0, result);
-    }
-    @Test
-    void testDel2() {
-        StringCalculator calc = new StringCalculator();
-        int result = calc.add("\\\\*\\n7\\n8*9,1");
-        assertEquals(25, result);
     }
 
     @Test
@@ -276,7 +270,7 @@ public class CalculatorTestClass {
     @Test
     void testDelNumber1() {
         StringCalculator calc = new StringCalculator();
-        int result = calc.add("\\\\4\\n541");
+        int result = calc.add("\\\\[4]\\n541");
         assertEquals(6, result);
     }
 
@@ -296,9 +290,104 @@ public class CalculatorTestClass {
     @Test
     void testNumber2() {
         StringCalculator calc = new StringCalculator();
-        int result = calc.add("\\\\^\\n1001^6,5");
+        int result = calc.add("\\\\[^]\\n1001^6,5");
         assertEquals(11, result);
     }
 
+    @Test
+    void test7Number1() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[**]\\n7**7");
+        assertEquals(14, result);
+    }
+
+    @Test
+    void test7Number2() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[^&##]\\n8,1\\n7^&##7");
+        assertEquals(23, result);
+    }
+
+    @Test
+    void test7Number3() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[^&##]\\n8,1\\n7^&#7");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number4() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\[^&##]\\n8,1\\n7^&#7");
+        assertEquals(0, result);
+    }
+    @Test
+    void test7Number5() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[^&##]\\8,1\\n7^&##7");
+        assertEquals(0, result);
+    }
+    @Test
+    void test7Number6() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[^&\\n7^&7");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number8() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\^&]\\n7^&7");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number9() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[&&^&]\\n7&&^7");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number10() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[&&^&]\\n7&&^&7,7\\n9&&^&2");
+        assertEquals(32, result);
+    }
+
+    @Test
+    void test7Number11() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[&&^&]\\n7&&&7,7\\n9&&^&0");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number12() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[&&^&]\\n7&&^&7,7\\n9&&^&");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number13() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[&&^&]\\n&&^&7,7\\n9&&^&1");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number14() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[&^&]\\n7,7\\n9&&^&1");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void test7Number15() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\[hh]\\n7,7\\n9hh1");
+        assertEquals(24, result);
+    }
 
 }

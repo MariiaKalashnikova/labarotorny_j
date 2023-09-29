@@ -2,17 +2,25 @@ package org.example;
 
 public class StringCalculator {
     public int add(String number) {
-        int coma_2 = 0, er = 0, del = 0,  neg_count = 0;
+        int coma_2 = 0, er = 0, del = 0,  neg_count = 0, index=number.indexOf(']');
         String number_1 = "", negative = "";
-        char delimeter = ' ';
-        if (number.length()>0) {
-            if(number.charAt(0)=='\\' && number.charAt(1)=='\\' && number.charAt(3)=='\\' && number.charAt(4)=='n') {
-                delimeter = number.charAt(2);
-                del++;
-            }}
+        String delimeter = "";
+        if (number.length()>0 && index!=-1) {
+            if(number.charAt(0)=='\\' && number.charAt(1)=='\\'  && number.charAt(2)=='[' && number.charAt(index)==']'&& number.charAt(index+1)=='\\'&& number.charAt(index+2)=='n') {
+                for(int count_del = 3; count_del<index; count_del++) {
+                    delimeter += number.charAt(count_del);
+                    del++;
+                }
+            }
 
+        }
 
-        for(int i=0; i < number.length(); i++) {
+        int count_0 = 0;
+        if(del > 0) {
+            count_0 = index+3;
+        }
+        for(int i=count_0; i < number.length(); i++) {
+
             if(number.charAt(i)==',') {
                 coma_2+=1;
             }
@@ -22,9 +30,23 @@ public class StringCalculator {
                     coma_2+=1;
                 }
             }
-            if(del == 1) {
-                if(number.charAt(i)==delimeter)
-                    coma_2+=1;
+            if(del > 0) {
+                int count_delimeter = 0;
+                if(number.charAt(i) == delimeter.charAt(count_delimeter)) {
+                    while(count_delimeter < delimeter.length()-1) {
+                        if(delimeter.charAt(count_delimeter) == number.charAt(i)) {
+                            i++;
+                            count_delimeter++;
+                        }
+                        else {
+                            break;
+                        }}
+                    if(count_delimeter == delimeter.length()-1) {
+                        if(delimeter.charAt(count_delimeter) == number.charAt(i)) {
+                            coma_2+=1;
+                        }
+                    }
+                }
             }
         }
         //підрахунок кількості ком або знаків \n
@@ -32,14 +54,16 @@ public class StringCalculator {
         int result = 0, j = 0;
         coma_2 += 1;
         int[] arr = new int[coma_2];
+
         int count = 0;
-        if(del == 1) {
-            count = 5;
+        if(del > 0) {
+            count = index+3;;
         }
 
         try {
             for (int i = count; i<number.length(); i++) {
-                if(number.charAt(i) == ',' || number.charAt(i) == delimeter) {
+                int count_delimeter_1 = 0;
+                if(number.charAt(i) == ',') {
                     //якщо розділовий знак кома або \n в масив додається число до коми(\n), перехід на наступний елемент масиву
                     arr[j] = Integer.parseInt(number_1);
                     if(arr[j]<0) {
@@ -61,6 +85,32 @@ public class StringCalculator {
                     else {
                         er+=1;
                         break;
+                    }
+                }
+                else if(del>0 && number.charAt(i) == delimeter.charAt(count_delimeter_1)) {
+
+                    while(count_delimeter_1 < delimeter.length()-1) {
+                        if(delimeter.charAt(count_delimeter_1) == number.charAt(i)) {
+                            i++;
+                            count_delimeter_1++;
+                        }
+                        else {
+                            er+=1;
+                            break;
+                        }}
+                    if(count_delimeter_1 == delimeter.length()-1) {
+                        if(delimeter.charAt(count_delimeter_1) == number.charAt(i)) {
+                            arr[j] = Integer.parseInt(number_1);
+                            if(arr[j]<0) {
+                                neg_count+=1;
+                            }
+                            j+=1;
+                            number_1 = "";
+                        }
+                        else {
+                            er+=1;
+                            break;
+                        }
                     }
                 }
                 else {
@@ -91,7 +141,7 @@ public class StringCalculator {
 
                 }}
 
-            if(neg_count > 0) {
+            if(neg_count > 0 && er==0) {
                 try {
                     throw new NegativeException("Від'ємне число: ", arr_negative);
                 }
@@ -103,7 +153,7 @@ public class StringCalculator {
                     }
                     result = 0;
                 }}
-            else {
+            else if(er==0) {
                 for(int y = 0; y<arr.length; y++) {
                     //підрахунок cуми елементів масиву
                     if(arr[y] <= 1000) {
@@ -114,9 +164,10 @@ public class StringCalculator {
                     if(number_arr < 1001) {
                         result+=number_arr;}
                 }
-                else {
-                    result=0;
-                }
+
+            }
+            else {
+                result=0;
             }}
         catch(NumberFormatException e) {
             result = 0;
