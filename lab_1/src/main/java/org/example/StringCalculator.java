@@ -11,11 +11,8 @@ public class StringCalculator {
                 del++;
             }}
 
-        int count_0 = 0;
-        if(del == 1) {
-            count_0 = 5;
-        }
-        for(int i=count_0; i < number.length(); i++) {
+
+        for(int i=0; i < number.length(); i++) {
             if(number.charAt(i)==',') {
                 coma_2+=1;
             }
@@ -109,11 +106,14 @@ public class StringCalculator {
             else {
                 for(int y = 0; y<arr.length; y++) {
                     //підрахунок cуми елементів масиву
-                    result = result+arr[y];
+                    if(arr[y] <= 1000) {
+                        result+=arr[y];}
                 }
                 //додавання останньої цифри з рядка
                 if(er==0) {
-                    result = result+number_arr;}
+                    if(number_arr < 1001) {
+                        result+=number_arr;}
+                }
                 else {
                     result=0;
                 }

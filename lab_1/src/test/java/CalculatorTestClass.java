@@ -26,14 +26,14 @@ public class CalculatorTestClass {
     void test1001() {
         StringCalculator calc = new StringCalculator();
         int result = calc.add("1001");
-        assertEquals(1001, result);
+        assertEquals(0, result);
     }
 
     @Test
     void test10012005() {
         StringCalculator calc = new StringCalculator();
         int result = calc.add("1001,2005");
-        assertEquals(3006, result);
+        assertEquals(0, result);
     }
     @Test
     void test3num() {
@@ -278,6 +278,26 @@ public class CalculatorTestClass {
         StringCalculator calc = new StringCalculator();
         int result = calc.add("\\\\4\\n541");
         assertEquals(6, result);
+    }
+
+    @Test
+    void testNumber1000() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("1000\\n999,1000");
+        assertEquals(2999, result);
+    }
+    @Test
+    void testNumber1() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("-1001");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testNumber2() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\\\^\\n1001^6,5");
+        assertEquals(11, result);
     }
 
 
