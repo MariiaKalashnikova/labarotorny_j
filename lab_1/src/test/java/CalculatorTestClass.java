@@ -131,5 +131,79 @@ public class CalculatorTestClass {
         assertEquals(0, result);
     }
 
+    @Test
+    void testComaN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("2,3\\n7");
+        assertEquals(12, result);
+    }
+
+    @Test
+    void testLineN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("23\\n3");
+        assertEquals(26, result);
+    }
+
+    @Test
+    void testLine() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("23\\3");
+        assertEquals(0, result);
+    }
+    @Test
+    void testN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("23n3");
+        assertEquals(0, result);
+    }
+    @Test
+    void testFewLineN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("23\\n3\\n8\\n2");
+        assertEquals(36, result);
+    }
+
+    @Test
+    void testMuch() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("23\\n3,9,3\\n8*7");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testAddNEnd() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("4\\n9\\n");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testAddNStart() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("\\n4\\n9");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testAddFewN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("4\\n\\n9");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testComaandN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("4\\n,9");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testLineeN() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("4\\9n8");
+        assertEquals(0, result);
+    }
 
 }

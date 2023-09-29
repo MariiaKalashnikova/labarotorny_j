@@ -2,13 +2,19 @@ package org.example;
 
 public class StringCalculator {
     public int add(String number) {
-        int coma_2 = 0;
+        int coma_2 = 0, er = 0;
         for(int i=0; i < number.length(); i++) {
-            if(number.charAt(i) ==',') {
-                coma_2 += 1;
+            if(number.charAt(i)==',') {
+                coma_2+=1;
+            }
+            if (number.charAt(i)=='\\') {
+                i++;
+                if (number.charAt(i)=='n') {
+                    coma_2 += 1;
+                }
             }
         }
-        //підрахунок кількості ком
+        //підрахунок кількості ком або знаків \n
         String number_1 = "";
         int result = 0, j = 0;
         coma_2 += 1;
@@ -16,11 +22,22 @@ public class StringCalculator {
         try {
             for (int i=0; i<number.length(); i++) {
                 if(number.charAt(i) == ',') {
-                    //якщо розділовий знак кома в масив додається число до коми, перехід на наступний елемент масиву
+                    //якщо розділовий знак кома або \n в масив додається число до коми(\n), перехід на наступний елемент масиву
                     arr[j] = Integer.parseInt(number_1);
                     j+=1;
                     number_1 = "";
-                    continue;
+                }
+                else if(number.charAt(i) =='\\') {
+                    i++;
+                    if(number.charAt(i) =='n') {
+                        arr[j] = Integer.parseInt(number_1);
+                        j += 1;
+                        number_1 = "";
+                    }
+                    else {
+                        er += 1;
+                        break;
+                    }
                 }
                 else {
                     //якщо наступний елемент цифра, записання її в рядок
@@ -30,11 +47,15 @@ public class StringCalculator {
             }
 
             for(int i = 0; i<arr.length; i++) {
-                //підрахунок елементів масиву
+                //сума елементів масиву
                 result = result+arr[i];
             }
             //додавання останньої цифри з рядка
-            result = result+Integer.parseInt(number_1);}
+            if(er == 0) {
+                result = result+Integer.parseInt(number_1);}
+            else {
+                result = 0;
+            }}
         catch(NumberFormatException e) {
             result = 0;
         }
