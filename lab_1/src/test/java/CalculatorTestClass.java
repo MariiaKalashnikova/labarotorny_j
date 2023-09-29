@@ -39,19 +39,19 @@ public class CalculatorTestClass {
     void test3num() {
         StringCalculator calc = new StringCalculator();
         int result = calc.add("2,7,8");
-        assertEquals(0, result);
+        assertEquals(17, result);
     }
 
     @Test
     void testComaEnd() {
         StringCalculator calc = new StringCalculator();
-        int result = calc.add("2,7,");
+        int result = calc.add("2,7,11,");
         assertEquals(0, result);
     }
     @Test
     void testComaStart() {
         StringCalculator calc = new StringCalculator();
-        int result = calc.add(",2,7");
+        int result = calc.add(",12,2,7");
         assertEquals(0, result);
     }
 
@@ -85,8 +85,8 @@ public class CalculatorTestClass {
     @Test
     void testAddNeg() {
         StringCalculator calc = new StringCalculator();
-        int result = calc.add("-6,-20");
-        assertEquals(-26, result);
+        int result = calc.add("-6,-20,-3");
+        assertEquals(-29, result);
     }
 
     @Test
@@ -102,5 +102,34 @@ public class CalculatorTestClass {
         int result = calc.add("0,20");
         assertEquals(20, result);
     }
+
+    @Test
+    void testAddNoComa() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("3,20*8");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testAddNoComaEnd() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("4,5,6*");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testAddDec() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("4,5,6.7");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void testNoComa1() {
+        StringCalculator calc = new StringCalculator();
+        int result = calc.add("!");
+        assertEquals(0, result);
+    }
+
 
 }
